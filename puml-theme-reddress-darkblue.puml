@@ -1,4 +1,9 @@
-@startuml
+''
+'' A dark blue style from "Red Dress"
+''
+'' Original Author: https://github.com/Drakemor
+'' https://github.com/Drakemor/RedDress-PlantUML
+''
 
 !if (%not(%variable_exists("$FONTNAME")))
 !$FONTNAME = "Verdana"
@@ -8,76 +13,10 @@
 !$FONTSIZE = 11
 !endif
 
-!ifdef DARKBLUE
 skinparam backgroundColor 777
 !$ACCENT = "1a66c2"
 !$ACCENTDARK = "002642"
 skinparam stereotypeCBackgroundColor $ACCENT
-!define DARKSTYLE
-!endif
-
-!ifdef LIGHTBLUE
-!$ACCENT = "2a86e2"
-!$ACCENTDARK = "1a66c2"
-skinparam stereotypeCBackgroundColor $ACCENTDARK
-!define LIGHTSTYLE
-!endif
-
-!ifdef DARKRED
-!$ACCENT = "880000"
-!$ACCENTDARK = "330000"
-skinparam stereotypeCBackgroundColor $ACCENT
-!define DARKSTYLE
-!endif
-
-!ifdef LIGHTRED
-!$ACCENT = "CC0033"
-!$ACCENTDARK = "AA0033"
-skinparam stereotypeCBackgroundColor $ACCENTDARK
-!define LIGHTSTYLE
-!endif
-
-!ifdef DARKGREEN
-!$ACCENT = "228811"
-!$ACCENTDARK = "113300"
-skinparam stereotypeCBackgroundColor $ACCENT
-!define DARKSTYLE
-!endif
-
-!ifdef LIGHTGREEN
-!$ACCENT = "55BB33"
-!$ACCENTDARK = "338822"
-skinparam stereotypeCBackgroundColor $ACCENTDARK
-!define LIGHTSTYLE
-!endif
-
-!ifdef DARKORANGE
-!$ACCENT = "BB6600"
-!$ACCENTDARK = "662200"
-skinparam stereotypeCBackgroundColor $ACCENT
-!define DARKSTYLE
-!endif
-
-!ifdef LIGHTORANGE
-!$ACCENT = "FF8800"
-!$ACCENTDARK = "BB6600"
-skinparam stereotypeCBackgroundColor $ACCENT
-!define LIGHTSTYLE
-!endif
-
-!ifdef LIGHTSTYLE
-!$PRIMARYFONTCOLOR = "000"
-!$SECONDARY = "333"
-!$ARROWCOLOR = "000"
-!$ARROWFONTCOLOR = "333"
-!$BORDERCOLOR = "aaa"
-!$BOXBG = "ccc"
-!$LIGHTBORDERCOLOR = "cccccc"
-!$LIGHTBG = "e0e0e0"
-skinparam backgroundColor fff
-!endif
-
-!ifdef DARKSTYLE
 !$PRIMARYFONTCOLOR = "fff"
 !$SECONDARY = "aaa"
 !$ARROWCOLOR = "fff"
@@ -87,7 +26,6 @@ skinparam backgroundColor fff
 !$LIGHTBORDERCOLOR = "767676"
 !$LIGHTBG = "575757"
 skinparam backgroundColor 777
-!endif
 
 !procedure font_style()
   fontColor $PRIMARYFONTCOLOR
@@ -263,5 +201,3 @@ skinparam storage {
   basic_style()
   font_style()
 }
-
-@enduml
