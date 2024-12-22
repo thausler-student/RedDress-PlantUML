@@ -29,6 +29,9 @@
 !$BOXBG = "2e2e2e"
 !$LIGHTBORDERCOLOR = "767676"
 !$LIGHTBG = "575757"
+!$SUCCESS = "#4CAF50"
+!$WARNING = "#ff9800"
+!$DANGER = "#F44336"
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '' Global Values
@@ -40,6 +43,18 @@ skinparam stereotypeCBackgroundColor $ACCENT
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '' Procedures
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+!procedure $success($msg)
+  <font color=$SUCCESS><b>$msg
+!endprocedure
+
+!procedure $failure($msg)
+  <font color=$DANGER><b>$msg
+!endprocedure
+
+!procedure $warning($msg)
+  <font color=$WARNING><b>$msg
+!endprocedure
 
 !procedure font_style()
   fontColor $PRIMARYFONTCOLOR
