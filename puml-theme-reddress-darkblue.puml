@@ -30,12 +30,16 @@
 !$LIGHTBORDERCOLOR = "767676"
 !$LIGHTBG = "575757"
 
-''
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '' Global Values
-''
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
 skinparam backgroundColor $BGCOLOR
 skinparam stereotypeCBackgroundColor $ACCENT
+
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+'' Procedures
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
 !procedure font_style()
   fontColor $PRIMARYFONTCOLOR
@@ -66,6 +70,41 @@ skinparam stereotypeCBackgroundColor $ACCENT
   arrowFontColor $ARROWFONTCOLOR
   arrowFontSize $FONTSIZE
 !endprocedure
+
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+'' Style Settings
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+<style>
+jsonDiagram {
+    BackGroundColor transparent
+  node {
+    BackGroundColor "2e2e2e"
+    LineColor "1b1b1b"
+    FontName Verdana
+    FontColor "fff"
+    FontSize 11
+    RoundCorner 0
+    LineThickness 2
+    separator {
+      LineThickness 0.5
+      LineColor "767676"
+    }
+  }
+  arrow {
+    BackGroundColor lightblue
+    LineColor "fff"
+    LineThickness 2
+    LineStyle 2-5
+  }
+  highlight {
+    BackGroundColor "1a66c2"
+    FontColor "fff"
+    FontStyle italic
+  }
+}
+</style>
+
 
 ' Class diagrams
 
