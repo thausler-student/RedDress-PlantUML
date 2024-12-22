@@ -20,11 +20,12 @@
 !endif
 
 !$ACCENT = "1a66c2"
+!$ACCENTTRANSPARENT = "1a66c277"
 !$ACCENTDARK = "002642"
-!$PRIMARYFONTCOLOR = "fff"
-!$SECONDARY = "aaa"
-!$ARROWCOLOR = "fff"
-!$ARROWFONTCOLOR = "bbb"
+!$PRIMARYFONTCOLOR = "FFFFFF"
+!$SECONDARYFONTCOLOR = "AAAAAA"
+!$ARROWCOLOR = "FFFFFF"
+!$ARROWFONTCOLOR = "BBBBBB"
 !$BORDERCOLOR = "1b1b1b"
 !$BOXBG = "2e2e2e"
 !$LIGHTBORDERCOLOR = "767676"
@@ -56,15 +57,12 @@ skinparam stereotypeCBackgroundColor $ACCENT
   <font color=$WARNING><b>$msg
 !endprocedure
 
-!procedure font_style()
+!procedure basic_style()
   fontColor $PRIMARYFONTCOLOR
   fontName $FONTNAME
   fontSize $FONTSIZE
-  stereotypeFontColor $SECONDARY
+  stereotypeFontColor $SECONDARYFONTCOLOR
   stereotypeFontSize $FONTSIZE
-!endprocedure
-
-!procedure basic_style()
   backgroundColor $BOXBG
   borderColor $BORDERCOLOR
 !endprocedure
@@ -91,33 +89,34 @@ skinparam stereotypeCBackgroundColor $ACCENT
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
 <style>
-jsonDiagram {
-    BackGroundColor transparent
+  root {
+    BackGroundColor $BGCOLOR
+    FontColor $PRIMARYFONTCOLOR
+  }
   node {
-    BackGroundColor "2e2e2e"
-    LineColor "1b1b1b"
-    FontName Verdana
-    FontColor "fff"
-    FontSize 11
+    BackGroundColor $BOXBG
+    LineColor $BORDERCOLOR
+    FontName $FONTNAME
+    FontColor $PRIMARYFONTCOLOR
+    FontSize $FONTSIZE
     RoundCorner 0
     LineThickness 2
     separator {
       LineThickness 0.5
-      LineColor "767676"
+      LineColor $LIGHTBORDERCOLOR
     }
   }
   arrow {
     BackGroundColor lightblue
-    LineColor "fff"
+    LineColor $ARROWCOLOR
     LineThickness 2
     LineStyle 2-5
   }
   highlight {
-    BackGroundColor "1a66c2"
-    FontColor "fff"
+    BackGroundColor $ACCENT
+    FontColor $PRIMARYFONTCOLOR
     FontStyle italic
   }
-}
 </style>
 
 
@@ -131,105 +130,121 @@ skinparam circledCharacter {
 
 skinparam class {
   basic_style()
-  font_style()
   arrow_style()
 
-  attributeFontColor $SECONDARY
+  attributeFontColor $SECONDARYFONTCOLOR
   attributeFontSize $FONTSIZE
   attributeIconSize $FONTSIZE
 }
 
-' Sequence diagrams
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+'' Sequence diagrams
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+!startsub sequence
+
+skinparam sequence {
+	BorderColor $BORDERCOLOR
+	' For some reason sequence title font color does not pick up from global
+	TitleFontColor $PRIMARYFONTCOLOR
+	StartColor $PRIMARYFONTCOLOR
+	EndColor $PRIMARYFONTCOLOR
+	''
+	BoxBackgroundColor $LIGHTBG
+	BoxBorderColor $BORDERCOLOR
+	BoxFontColor $PRIMARYFONTCOLOR
+	''
+	DelayFontColor $SECONDARYFONTCOLOR
+	''
+	LifeLineBorderColor $ARROWCOLOR
+	LifeLineBorderThickness 2
+	LifeLineBackgroundColor $BORDERCOLOR
+	''
+	GroupBorderColor $BORDERCOLOR
+	GroupBackgroundColor $ACCENT
+	GroupFontColor $SECONDARYFONTCOLOR
+	GroupHeaderFontColor $PRIMARYFONTCOLOR
+	''
+	DividerBackgroundColor $ACCENT
+    DividerBorderColor $BORDERCOLOR
+    DividerBorderThickness 2
+    DividerFontColor $PRIMARYFONTCOLOR
+	''
+	ReferenceBackgroundColor $ACCENTDARK
+	ReferenceBorderColor $BORDERCOLOR
+	ReferenceFontColor $PRIMARYFONTCOLOR
+	ReferenceHeaderFontColor $PRIMARYFONTCOLOR
+	''
+	StereotypeFontColor $PRIMARYFONTCOLOR
+}
+!endsub
 
 skinparam actor {
+  basic_style()
   accent_style()
-  font_style()
 }
 
 skinparam participant {
   basic_style()
-  font_style()
 }
 
 skinparam collections {
   basic_style()
-  font_style()
-}
-
-skinparam SequenceBox{
-  light_style()
-  font_style()
 }
 
 ' Component diagrams
 
 skinparam interface {
+  basic_style()
   accent_style()
-  font_style()
 }
 
 skinparam component {
   basic_style()
-  font_style()
 }
 
 skinparam node {
   basic_style()
-  font_style()
 }
 
 skinparam database {
   basic_style()
-  font_style()
 }
 
 skinparam queue {
   basic_style()
-  font_style()
 }
 
 ' Use Case diagrams
 
 skinparam usecase {
   basic_style()
-  font_style()
   arrow_style()
 }
 
 skinparam activity {
   basic_style()
-  font_style()
   arrow_style()
-}
-
-skinparam sequence {
-  font_style()
-  arrow_style()
-
-  lifeLineBorderColor $ACCENT
-  lifeLineBackgroundColor $LIGHTBG
 }
 
 skinparam boundary {
+  basic_style()
   accent_style()
-  font_style()
 }
 
 skinparam control {
+  basic_style()
   accent_style()
-  font_style()
 }
 
 skinparam entity {
+  basic_style()
   accent_style()
-  font_style()
 }
 
 ' State diagrams
 
 skinparam state {
   basic_style()
-  font_style()
   arrow_style()
   startColor $ACCENT
   endColor $ACCENTDARK
@@ -239,29 +254,25 @@ skinparam state {
 
 skinparam object {
   basic_style()
-  font_style()
   arrow_style()
 }
 
 ' Common
 
 skinparam note {
+  basic_style()
   accent_style()
-  font_style()
 }
 
 skinparam cloud {
   basic_style()
-  font_style()
   arrow_style()
 }
 
 skinparam rectangle {
   basic_style()
-  font_style()
 }
 
 skinparam storage {
   basic_style()
-  font_style()
 }
