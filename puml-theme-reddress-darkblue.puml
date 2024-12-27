@@ -19,17 +19,27 @@
 !$FONTSIZE = 11
 !endif
 
+!$BOXBG = "2e2e2e"
+!$LIGHTBG = "575757"
+
 !$ACCENT = "1a66c2"
-!$ACCENTTRANSPARENT = "1a66c277"
-!$ACCENTDARK = "002642"
+!$ACCENT_T10 = "1a66c219"
+!$ACCENT_T20 = "1a66c233"
+!$ACCENT_T30 = "1a66c24D"
+!$ACCENT_T40 = "1a66c266"
+!$ACCENT_T50 = "1a66c280"
+!$ACCENT_DARK = "002642"
+
+!$BORDERCOLOR = "1b1b1b"
+!$LIGHTBORDERCOLOR = "767676"
+
 !$PRIMARYFONTCOLOR = "FFFFFF"
 !$SECONDARYFONTCOLOR = "AAAAAA"
+!$LIGHTFONTCOLOR = "000000"
+
 !$ARROWCOLOR = "FFFFFF"
 !$ARROWFONTCOLOR = "BBBBBB"
-!$BORDERCOLOR = "1b1b1b"
-!$BOXBG = "2e2e2e"
-!$LIGHTBORDERCOLOR = "767676"
-!$LIGHTBG = "575757"
+
 !$SUCCESS = "#4CAF50"
 !$WARNING = "#ff9800"
 !$DANGER = "#F44336"
@@ -74,7 +84,7 @@ skinparam stereotypeCBackgroundColor $ACCENT
 
 !procedure accent_style()
   backgroundColor $ACCENT
-  borderColor $ACCENTDARK
+  borderColor $ACCENT_DARK
 !endprocedure
 
 !procedure arrow_style()
@@ -106,16 +116,74 @@ skinparam stereotypeCBackgroundColor $ACCENT
       LineColor $LIGHTBORDERCOLOR
     }
   }
+  note {
+    FontColor $PRIMARYFONTCOLOR
+	FontName $FONTNAME
+	fontSize $FONTSIZE
+    StereotypeFontColor $SECONDARYFONTCOLOR
+    StereotypeFontSize $FONTSIZE
+    BackgroundColor $ACCENT
+    BorderColor $ACCENT_DARK
+  }
+
   arrow {
     BackGroundColor lightblue
+    FontColor $ARROWFONTCOLOR
     LineColor $ARROWCOLOR
     LineThickness 2
-    LineStyle 2-5
+    LineStyle 0
   }
   highlight {
     BackGroundColor $ACCENT
     FontColor $PRIMARYFONTCOLOR
     FontStyle italic
+  }
+  activityDiagram {
+    partition {
+      Shadowing 0
+      BackgroundColor #$ACCENT_T20
+      LineColor $ACCENT_DARK
+    }
+    group {
+      Shadowing 0
+      BackgroundColor #$ACCENT_T20
+      LineColor $ACCENT_DARK
+    }
+    package {
+      Shadowing 0
+      BackgroundColor #$ACCENT_T20
+      LineColor $ACCENT_DARK
+    }
+    activity {
+      BackgroundColor $BOXBG
+      BorderColor $BORDERCOLOR
+	  FontColor $PRIMARYFONTCOLOR
+    }
+    diamond {
+      BackgroundColor $LIGHTBG
+  	  BorderColor $BORDERCOLOR
+	  FontColor $PRIMARYFONTCOLOR
+    }
+	circle {
+      BackgroundColor $LIGHTBG
+      LineColor $BORDERCOLOR
+    }
+    start {
+      BackgroundColor $SUCCESS
+      LineColor $LIGHTBORDERCOLOR
+    }
+    stop, end {
+      Shadowing 0
+      BackgroundColor $DANGER
+      LineColor $DANGER
+    }
+
+    activityBar {
+	  Shadowing 0
+	  BackgroundColor $WHITE
+	  LineColor $WHITE
+	  BorderColor $WHITE
+    }
   }
 </style>
 
@@ -169,7 +237,7 @@ skinparam sequence {
     DividerBorderThickness 2
     DividerFontColor $PRIMARYFONTCOLOR
 	''
-	ReferenceBackgroundColor $ACCENTDARK
+	ReferenceBackgroundColor $ACCENT_DARK
 	ReferenceBorderColor $BORDERCOLOR
 	ReferenceFontColor $PRIMARYFONTCOLOR
 	ReferenceHeaderFontColor $PRIMARYFONTCOLOR
@@ -178,6 +246,9 @@ skinparam sequence {
 }
 !endsub
 
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+'' Activity diagrams
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 skinparam actor {
   basic_style()
   accent_style()
@@ -221,11 +292,6 @@ skinparam usecase {
   arrow_style()
 }
 
-skinparam activity {
-  basic_style()
-  arrow_style()
-}
-
 skinparam boundary {
   basic_style()
   accent_style()
@@ -247,7 +313,7 @@ skinparam state {
   basic_style()
   arrow_style()
   startColor $ACCENT
-  endColor $ACCENTDARK
+  endColor $ACCENT_DARK
 }
 
 ' Object diagrams
@@ -258,12 +324,6 @@ skinparam object {
 }
 
 ' Common
-
-skinparam note {
-  basic_style()
-  accent_style()
-}
-
 skinparam cloud {
   basic_style()
   arrow_style()
