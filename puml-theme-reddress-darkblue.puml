@@ -20,7 +20,9 @@
 !endif
 
 !$BOXBG = "2e2e2e"
+!$BORDERCOLOR = "1b1b1b"
 !$LIGHTBG = "575757"
+!$LIGHTBORDERCOLOR = "767676"
 
 !$ACCENT = "1a66c2"
 !$ACCENT_T10 = "1a66c219"
@@ -29,9 +31,6 @@
 !$ACCENT_T40 = "1a66c266"
 !$ACCENT_T50 = "1a66c280"
 !$ACCENT_DARK = "002642"
-
-!$BORDERCOLOR = "1b1b1b"
-!$LIGHTBORDERCOLOR = "767676"
 
 !$PRIMARYFONTCOLOR = "FFFFFF"
 !$SECONDARYFONTCOLOR = "AAAAAA"
@@ -43,13 +42,6 @@
 !$SUCCESS = "#4CAF50"
 !$WARNING = "#ff9800"
 !$DANGER = "#F44336"
-
-'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-'' Global Values
-'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-
-skinparam backgroundColor $BGCOLOR
-skinparam stereotypeCBackgroundColor $ACCENT
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '' Procedures
@@ -67,48 +59,31 @@ skinparam stereotypeCBackgroundColor $ACCENT
   <font color=$WARNING><b>$msg
 !endprocedure
 
-!procedure basic_style()
-  fontColor $PRIMARYFONTCOLOR
-  fontName $FONTNAME
-  fontSize $FONTSIZE
-  stereotypeFontColor $SECONDARYFONTCOLOR
-  stereotypeFontSize $FONTSIZE
-  backgroundColor $BOXBG
-  borderColor $BORDERCOLOR
-!endprocedure
-
-!procedure light_style()
-  backgroundColor $LIGHTBG
-  borderColor $LIGHTBORDERCOLOR
-!endprocedure
-
-!procedure accent_style()
-  backgroundColor $ACCENT
-  borderColor $ACCENT_DARK
-!endprocedure
-
-!procedure arrow_style()
-  arrowColor $ARROWCOLOR
-  arrowFontName $FONTNAME
-  arrowFontColor $ARROWFONTCOLOR
-  arrowFontSize $FONTSIZE
-!endprocedure
-
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '' Style Settings
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
 <style>
   root {
-    BackGroundColor $BGCOLOR
     FontColor $PRIMARYFONTCOLOR
+    FontName $FONTNAME
+    FontSize $FONTSIZE
+    Margin 4
+    RoundCorner 8
+    shadowing 2
+  }
+  document {
+    BackgroundColor $BGCOLOR
+    title {
+      BackgroundColor $ACCENT_T50 
+      LineColor $WHITE
+      FontSize 16
+    }
   }
   node {
-    BackGroundColor $BOXBG
+    BackgroundColor $BOXBG
     LineColor $BORDERCOLOR
-    FontName $FONTNAME
     FontColor $PRIMARYFONTCOLOR
-    FontSize $FONTSIZE
     RoundCorner 0
     LineThickness 2
     separator {
@@ -117,15 +92,12 @@ skinparam stereotypeCBackgroundColor $ACCENT
     }
   }
   note {
-    FontColor $PRIMARYFONTCOLOR
-	FontName $FONTNAME
-	fontSize $FONTSIZE
     StereotypeFontColor $SECONDARYFONTCOLOR
     StereotypeFontSize $FONTSIZE
     BackgroundColor $ACCENT
     BorderColor $ACCENT_DARK
   }
-
+  
   arrow {
     BackGroundColor lightblue
     FontColor $ARROWFONTCOLOR
@@ -134,205 +106,241 @@ skinparam stereotypeCBackgroundColor $ACCENT
     LineStyle 0
   }
   highlight {
-    BackGroundColor $ACCENT
-    FontColor $PRIMARYFONTCOLOR
+    BackGroundColor $ACCENT_T50
     FontStyle italic
   }
-  activityDiagram {
-    partition {
-      Shadowing 0
-      BackgroundColor #$ACCENT_T20
-      LineColor $ACCENT_DARK
-    }
-    group {
-      Shadowing 0
-      BackgroundColor #$ACCENT_T20
-      LineColor $ACCENT_DARK
-    }
-    package {
-      Shadowing 0
-      BackgroundColor #$ACCENT_T20
-      LineColor $ACCENT_DARK
-    }
-    activity {
-      BackgroundColor $BOXBG
-      BorderColor $BORDERCOLOR
-	  FontColor $PRIMARYFONTCOLOR
-    }
-    diamond {
-      BackgroundColor $LIGHTBG
-  	  BorderColor $BORDERCOLOR
-	  FontColor $PRIMARYFONTCOLOR
-    }
-	circle {
-      BackgroundColor $LIGHTBG
-      LineColor $BORDERCOLOR
-    }
-    start {
-      BackgroundColor $SUCCESS
-      LineColor $LIGHTBORDERCOLOR
-    }
-    stop, end {
-      Shadowing 0
-      BackgroundColor $DANGER
-      LineColor $DANGER
-    }
 
-    activityBar {
-	  Shadowing 0
-	  BackgroundColor $WHITE
-	  LineColor $WHITE
-	  BorderColor $WHITE
+  json, object, map {
+    BackgroundColor $BOXBG
+    FontColor $SECONDARYFONTCOLOR
+  }
+
+activityDiagram {
+  partition, group, package {
+    Shadowing 0
+    BackgroundColor #$ACCENT_T20
+    LineColor $ACCENT_DARK
+    Title {
+      FontStyle bold
     }
   }
+  activity {
+    BackgroundColor $BOXBG
+    BorderColor $BORDERCOLOR
+  }
+  diamond, circle {
+    BackgroundColor $LIGHTBG
+    BorderColor $BORDERCOLOR
+  }
+  start {
+    BackgroundColor $SUCCESS
+    LineColor $LIGHTBORDERCOLOR
+  }
+  stop, end {
+    Shadowing 0
+    BackgroundColor $DANGER
+    LineColor $DANGER
+  }
+  activityBar {
+    Shadowing 0
+    BackgroundColor $WHITE
+    LineColor $WHITE
+    BorderColor $WHITE
+  }
+  swimlane {
+    BackgroundColor $ACCENT_DARK
+    LineColor $ACCENT_DARK
+  }
+}
+
+classDiagram {
+  class {
+    LineThickness 2
+    LineColor $BORDERCOLOR
+    BackgroundColor $BOXBG
+    FontColor $SECONDARYFONTCOLOR
+    generic {
+      BackgroundColor $LIGHTBG
+      FontColor $SECONDARYFONTCOLOR
+    }
+    stereotype {
+      BackgroundColor $DANGER
+    }
+  }
+  stereotype {
+    BackgroundColor $ACCENT
+    FontColor $SECONDARYFONTCOLOR
+    FontSize $FONTSIZE
+    
+  }
+  package {
+    Shadowing 0
+    BackgroundColor #$ACCENT_T20
+    LineColor $ACCENT_DARK
+    Title {
+      FontStyle bold
+    }
+    
+  }
+  diamond, interface {
+    LineColor $BORDERCOLOR
+    BackgroundColor $LIGHTBG
+    Shadowing 0
+  }
+}
+
+jsonDiagram, yamlDiagram {
+  arrow {
+    LineThickness 2
+    LineStyle 5,5
+  }
+  node {
+    maximumWidth 256
+  }
+}
+
+timingDiagram {
+  highlight {
+    BackgroundColor $BOXBG
+    FontColor $PRIMARYFONTCOLOR
+    LineColor $LIGHTBORDERCOLOR
+  }
+  concise {
+    LineThickness 4
+    LineColor $ACCENT
+    BackgroundColor transparent
+    FontColor $PRIMARYFONTCOLOR
+  }
+  process {
+    BackgroundColor $DANGER
+  }
+  constraintArrow {
+    LineThickness 2
+  }
+}
+
+ganttDiagram {
+  undone {
+    BackgroundColor $LIGHTBG
+  }
+  task {
+    BackgroundColor $SUCCESS
+    LineColor $BORDERCOLOR
+    RoundCorner 0
+    FontColor $PRIMARYFONTCOLOR
+    unstarted {
+      BackgroundColor $DANGER
+    }
+  }
+  closed {
+    BackgroundColor $ACCENT_T50
+  }
+  timeline {
+    BackgroundColor $BOXBG
+    LineColor $LIGHTBORDERCOLOR
+  }
+  milestone {
+    BackgroundColor $ACCENT
+  }
+  separator {
+    LineColor $LIGHTBORDERCOLOR
+    BackgroundColor transparent
+    FontStyle bold
+  }
+  verticalSeparator {
+    LineColor $LIGHTBORDERCOLOR
+    LineThickness 3
+    LineSTyle 4, 4
+  }
+  quarter {
+    BackgroundColor $DANGER
+  }
+  region {
+    BackgroundColor $DANGER
+  }
+}
+
+sequenceDiagram {
+  Start, End {
+    FontColor $PRIMARYFONTCOLOR
+  }
+  Box {
+    BackgroundColor $ACCENT_DARK
+    LineColor $BORDERCOLOR
+    FontColor $PRIMARYFONTCOLOR
+  }
+  Delay {
+    LineColor $BORDERCOLOR
+    FontColor $SECONDARYFONTCOLOR
+  }
+  LifeLine {
+    Shadowing 0
+    BackgroundColor $LIGHTBG
+    LineColor $LIGHTBORDERCOLOR
+    LineThickness 1
+  }
+  Divider {
+    BackgroundColor $ACCENT
+    LineColor $BORDERCOLOR
+    LineThickness 2
+    FontColor $PRIMARYFONTCOLOR
+  }
+  GroupHeader {
+    BackgroundColor $ACCENT
+    LineColor $ACCENT_DARK
+    FontColor $PRIMARYFONTCOLOR
+  }
+  Group {
+    Shadowing 0
+    BackgroundColor $ACCENT_T20
+    LineColor $ACCENT_DARK
+    FontColor $SECONDARYFONTCOLOR
+  }
+  ReferenceHeader {
+    BackgroundColor $ACCENT_DARK
+    LineColor $BORDERCOLOR
+    FontColor $PRIMARYFONTCOLOR
+  }
+  Reference {
+    Shadowing 0
+    LineColor $BORDERCOLOR
+    BackgroundColor $ACCENT_DARK
+    FontColor $SECONDARYFONTCOLOR
+  }
+  Separator {
+    BackgroundColor $ACCENT
+  }
+  actor, database, boundary, entity, collections, participant, control {
+    
+    BackgroundColor $BOXBG
+    LineColor $BORDERCOLOR
+  }
+  actor {
+    LineThickness 2
+  }
+}
+
+stateDiagram {
+  state {
+    BackgroundColor $BOXBG
+    LineColor $BORDERCOLOR
+  }
+  stateBody {
+    BackgroundColor $ACCENT_T20
+    LineColor $BORDERCOLOR
+  }
+  diamond, circle {
+    BackgroundColor $LIGHTBG
+    LineColor $BORDERCOLOR
+  }
+  start {
+    BackgroundColor $SUCCESS
+    LineColor $LIGHTBORDERCOLOR
+  }
+  end {
+    Shadowing 0
+    BackgroundColor $DANGER
+    LineColor $DANGER
+  }
+}
 </style>
-
-
-' Class diagrams
-
-skinparam circledCharacter {
-  radius 8
-  fontSize $FONTSIZE
-  fontName $FONTNAME
-}
-
-skinparam class {
-  basic_style()
-  arrow_style()
-
-  attributeFontColor $SECONDARYFONTCOLOR
-  attributeFontSize $FONTSIZE
-  attributeIconSize $FONTSIZE
-}
-
-'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-'' Sequence diagrams
-'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-!startsub sequence
-
-skinparam sequence {
-	BorderColor $BORDERCOLOR
-	' For some reason sequence title font color does not pick up from global
-	TitleFontColor $PRIMARYFONTCOLOR
-	StartColor $PRIMARYFONTCOLOR
-	EndColor $PRIMARYFONTCOLOR
-	''
-	BoxBackgroundColor $LIGHTBG
-	BoxBorderColor $BORDERCOLOR
-	BoxFontColor $PRIMARYFONTCOLOR
-	''
-	DelayFontColor $SECONDARYFONTCOLOR
-	''
-	LifeLineBorderColor $ARROWCOLOR
-	LifeLineBorderThickness 2
-	LifeLineBackgroundColor $BORDERCOLOR
-	''
-	GroupBorderColor $BORDERCOLOR
-	GroupBackgroundColor $ACCENT
-	GroupFontColor $SECONDARYFONTCOLOR
-	GroupHeaderFontColor $PRIMARYFONTCOLOR
-	''
-	DividerBackgroundColor $ACCENT
-    DividerBorderColor $BORDERCOLOR
-    DividerBorderThickness 2
-    DividerFontColor $PRIMARYFONTCOLOR
-	''
-	ReferenceBackgroundColor $ACCENT_DARK
-	ReferenceBorderColor $BORDERCOLOR
-	ReferenceFontColor $PRIMARYFONTCOLOR
-	ReferenceHeaderFontColor $PRIMARYFONTCOLOR
-	''
-	StereotypeFontColor $PRIMARYFONTCOLOR
-}
-!endsub
-
-'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-'' Activity diagrams
-'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-skinparam actor {
-  basic_style()
-  accent_style()
-}
-
-skinparam participant {
-  basic_style()
-}
-
-skinparam collections {
-  basic_style()
-}
-
-' Component diagrams
-
-skinparam interface {
-  basic_style()
-  accent_style()
-}
-
-skinparam component {
-  basic_style()
-}
-
-skinparam node {
-  basic_style()
-}
-
-skinparam database {
-  basic_style()
-}
-
-skinparam queue {
-  basic_style()
-}
-
-' Use Case diagrams
-
-skinparam usecase {
-  basic_style()
-  arrow_style()
-}
-
-skinparam boundary {
-  basic_style()
-  accent_style()
-}
-
-skinparam control {
-  basic_style()
-  accent_style()
-}
-
-skinparam entity {
-  basic_style()
-  accent_style()
-}
-
-' State diagrams
-
-skinparam state {
-  basic_style()
-  arrow_style()
-  startColor $ACCENT
-  endColor $ACCENT_DARK
-}
-
-' Object diagrams
-
-skinparam object {
-  basic_style()
-  arrow_style()
-}
-
-' Common
-skinparam cloud {
-  basic_style()
-  arrow_style()
-}
-
-skinparam rectangle {
-  basic_style()
-}
-
-skinparam storage {
-  basic_style()
-}
