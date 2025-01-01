@@ -66,6 +66,7 @@
 <style>
   root {
     FontColor $PRIMARYFONTCOLOR
+    HyperLinkColor $PRIMARYFONTCOLOR
     FontName $FONTNAME
     FontSize $FONTSIZE
     Margin 4
