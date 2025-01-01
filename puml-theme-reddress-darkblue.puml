@@ -246,7 +246,6 @@ timingDiagram {
   }
   constraintArrow {
     LineThickness 2
-  }
     LineColor $RED
   }
   analog {
