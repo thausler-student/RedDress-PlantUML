@@ -7,8 +7,32 @@
 
 !$THEME = "reddress-darkblue"
 
-!if %not(%variable_exists("$BGCOLOR"))
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+'' Functions
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+!function $transparency($color, $percent)
+  !$CLEANED_COLOR = %darken($color, 0)
+  !$TRANSPARENCY = %string(%dec2hex(%intval($percent) * 256 / 100))
+  !while %strlen($TRANSPARENCY) == 0 || %strlen($TRANSPARENCY) == 1
+    !$TRANSPARENCY = "0" + $TRANSPARENCY
+  !endwhile
+  !if %strlen($TRANSPARENCY) != 2
+    !$TRANSPARENCY = "FF"
+  !endif
+  !return $CLEANED_COLOR + $TRANSPARENCY
+!endfunction
+
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+'' Defaults
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+!if (%not(%variable_exists("$BGCOLOR")))
 !$BGCOLOR = "transparent"
+!endif
+
+!if (%not(%variable_exists("$ACCENT")))
+!$ACCENT = "1a66c2"
 !endif
 
 !if (%not(%variable_exists("$FONTNAME")))
@@ -19,54 +43,56 @@
 !$FONTSIZE = 11
 !endif
 
-!$BOXBG = "2e2e2e"
-!$BORDERCOLOR = "1b1b1b"
-!$LIGHTBG = "575757"
-!$LIGHTBORDERCOLOR = "767676"
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+'' Colors
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-!$ACCENT = "1a66c2"
-!$ACCENT_T10 = "1a66c219"
-!$ACCENT_T20 = "1a66c233"
-!$ACCENT_T30 = "1a66c24D"
-!$ACCENT_T40 = "1a66c266"
-!$ACCENT_T50 = "1a66c280"
-!$ACCENT_DARK = "002642"
+!$WHITE  = "FFFFFF"
+!$BLACK  = "000000"
+!$RED    = "F44336"
+!$YELLOW = "ff9800"
+!$GREEN  = "4CAF50"
 
-!$PRIMARYFONTCOLOR = "FFFFFF"
-!$SECONDARYFONTCOLOR = "AAAAAA"
-!$LIGHTFONTCOLOR = "000000"
+!$COLOR_PRIMARY = "2e2e2e"
+!$LINECOLOR_PRIMARY = "1b1b1b"
+!$COLOR_SECONDARY = "575757"
+!$LINECOLOR_SECONDARY = "767676"
 
-!$ARROWCOLOR = "FFFFFF"
+!$ACCENT_T20 = $transparency($ACCENT, 20)
+!$ACCENT_T50 = $transparency($ACCENT, 50)
+!$ACCENT_DARK = %darken($ACCENT, 65)
+
+!$FONTCOLOR_PRIMARY = $WHITE
+!$FONTCOLOR_SECONDARY = "AAAAAA"
+!$LIGHTFONTCOLOR = $BLACK
+
+!$ARROWCOLOR = $WHITE
 !$ARROWFONTCOLOR = "BBBBBB"
-
-!$SUCCESS = "#4CAF50"
-!$WARNING = "#ff9800"
-!$DANGER = "#F44336"
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '' Procedures
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
 !procedure $success($msg)
-  <font color=$SUCCESS><b>$msg
+  <font color=$GREEN><b>$msg
 !endprocedure
 
 !procedure $failure($msg)
-  <font color=$DANGER><b>$msg
+  <font color=$RED><b>$msg
 !endprocedure
 
 !procedure $warning($msg)
-  <font color=$WARNING><b>$msg
+  <font color=$YELLOW><b>$msg
 !endprocedure
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-'' Style Settings
+'' Styles
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
 <style>
   root {
-    FontColor $PRIMARYFONTCOLOR
-    HyperLinkColor $PRIMARYFONTCOLOR
+    FontColor $FONTCOLOR_PRIMARY
+    HyperLinkColor $FONTCOLOR_PRIMARY
     FontName $FONTNAME
     FontSize $FONTSIZE
     Margin 4
@@ -80,27 +106,30 @@
       LineColor $WHITE
       FontSize 16
     }
+    legend {
+      BackgroundColor $ACCENT_T50 
+      LineColor $WHITE
+    }
   }
   node {
-    BackgroundColor $BOXBG
-    LineColor $BORDERCOLOR
-    FontColor $PRIMARYFONTCOLOR
+    BackgroundColor $COLOR_PRIMARY
+    LineColor $LINECOLOR_PRIMARY
+    FontColor $FONTCOLOR_PRIMARY
     RoundCorner 0
     LineThickness 2
     separator {
       LineThickness 0.5
-      LineColor $LIGHTBORDERCOLOR
+      LineColor $LINECOLOR_SECONDARY
     }
   }
   note {
-    StereotypeFontColor $SECONDARYFONTCOLOR
+    StereotypeFontColor $FONTCOLOR_SECONDARY
     StereotypeFontSize $FONTSIZE
     BackgroundColor $ACCENT
     BorderColor $ACCENT_DARK
   }
   
   arrow {
-    BackGroundColor lightblue
     FontColor $ARROWFONTCOLOR
     LineColor $ARROWCOLOR
     LineThickness 2
@@ -112,8 +141,8 @@
   }
 
   json, object, map {
-    BackgroundColor $BOXBG
-    FontColor $SECONDARYFONTCOLOR
+    BackgroundColor $COLOR_PRIMARY
+    FontColor $FONTCOLOR_SECONDARY
   }
 
 activityDiagram {
@@ -126,21 +155,21 @@ activityDiagram {
     }
   }
   activity {
-    BackgroundColor $BOXBG
-    BorderColor $BORDERCOLOR
+    BackgroundColor $COLOR_PRIMARY
+    BorderColor $LINECOLOR_PRIMARY
   }
   diamond, circle {
-    BackgroundColor $LIGHTBG
-    BorderColor $BORDERCOLOR
+    BackgroundColor $COLOR_SECONDARY
+    BorderColor $LINECOLOR_PRIMARY
   }
   start {
-    BackgroundColor $SUCCESS
-    LineColor $LIGHTBORDERCOLOR
+    BackgroundColor $GREEN
+    LineColor $LINECOLOR_SECONDARY
   }
   stop, end {
     Shadowing 0
-    BackgroundColor $DANGER
-    LineColor $DANGER
+    BackgroundColor $RED
+    LineColor $RED
   }
   activityBar {
     Shadowing 0
@@ -157,20 +186,20 @@ activityDiagram {
 classDiagram {
   class {
     LineThickness 2
-    LineColor $BORDERCOLOR
-    BackgroundColor $BOXBG
-    FontColor $SECONDARYFONTCOLOR
+    LineColor $LINECOLOR_PRIMARY
+    BackgroundColor $COLOR_PRIMARY
+    FontColor $FONTCOLOR_SECONDARY
     generic {
-      BackgroundColor $LIGHTBG
-      FontColor $SECONDARYFONTCOLOR
+      BackgroundColor $COLOR_SECONDARY
+      FontColor $FONTCOLOR_SECONDARY
     }
     stereotype {
-      BackgroundColor $DANGER
+      BackgroundColor $RED
     }
   }
   stereotype {
     BackgroundColor $ACCENT
-    FontColor $SECONDARYFONTCOLOR
+    FontColor $FONTCOLOR_SECONDARY
     FontSize $FONTSIZE
     
   }
@@ -184,8 +213,8 @@ classDiagram {
     
   }
   diamond, interface {
-    LineColor $BORDERCOLOR
-    BackgroundColor $LIGHTBG
+    LineColor $LINECOLOR_PRIMARY
+    BackgroundColor $COLOR_SECONDARY
     Shadowing 0
   }
 }
@@ -202,119 +231,129 @@ jsonDiagram, yamlDiagram {
 
 timingDiagram {
   highlight {
-    BackgroundColor $BOXBG
-    FontColor $PRIMARYFONTCOLOR
-    LineColor $LIGHTBORDERCOLOR
+    BackgroundColor $COLOR_PRIMARY
+    FontColor $FONTCOLOR_PRIMARY
+    LineColor $LINECOLOR_SECONDARY
   }
   concise {
     LineThickness 4
     LineColor $ACCENT
     BackgroundColor transparent
-    FontColor $PRIMARYFONTCOLOR
+    FontColor $FONTCOLOR_PRIMARY
   }
   process {
-    BackgroundColor $DANGER
+    BackgroundColor $RED
   }
   constraintArrow {
     LineThickness 2
+  }
+    LineColor $RED
+  }
+  analog {
+    LineThickness 2
+    LineColor $YELLOW
+  }
+  clock, binary, robust {
+    LineThickness 2
+    LineColor $GREEN
   }
 }
 
 ganttDiagram {
   undone {
-    BackgroundColor $LIGHTBG
+    BackgroundColor $COLOR_SECONDARY
   }
   task {
-    BackgroundColor $SUCCESS
-    LineColor $BORDERCOLOR
+    BackgroundColor $GREEN
+    LineColor $LINECOLOR_PRIMARY
     RoundCorner 0
-    FontColor $PRIMARYFONTCOLOR
+    FontColor $FONTCOLOR_PRIMARY
     unstarted {
-      BackgroundColor $DANGER
+      BackgroundColor $RED
     }
   }
   closed {
     BackgroundColor $ACCENT_T50
   }
   timeline {
-    BackgroundColor $BOXBG
-    LineColor $LIGHTBORDERCOLOR
+    BackgroundColor $COLOR_PRIMARY
+    LineColor $LINECOLOR_SECONDARY
   }
   milestone {
     BackgroundColor $ACCENT
   }
   separator {
-    LineColor $LIGHTBORDERCOLOR
+    LineColor $LINECOLOR_SECONDARY
     BackgroundColor transparent
     FontStyle bold
   }
   verticalSeparator {
-    LineColor $LIGHTBORDERCOLOR
+    LineColor $LINECOLOR_SECONDARY
     LineThickness 3
     LineSTyle 4, 4
   }
   quarter {
-    BackgroundColor $DANGER
+    BackgroundColor $RED
   }
   region {
-    BackgroundColor $DANGER
+    BackgroundColor $RED
   }
 }
 
 sequenceDiagram {
   Start, End {
-    FontColor $PRIMARYFONTCOLOR
+    FontColor $FONTCOLOR_PRIMARY
   }
   Box {
     BackgroundColor $ACCENT_DARK
-    LineColor $BORDERCOLOR
-    FontColor $PRIMARYFONTCOLOR
+    LineColor $LINECOLOR_PRIMARY
+    FontColor $FONTCOLOR_PRIMARY
   }
   Delay {
-    LineColor $BORDERCOLOR
-    FontColor $SECONDARYFONTCOLOR
+    LineColor $LINECOLOR_PRIMARY
+    FontColor $FONTCOLOR_SECONDARY
   }
   LifeLine {
     Shadowing 0
-    BackgroundColor $LIGHTBG
-    LineColor $LIGHTBORDERCOLOR
+    BackgroundColor $COLOR_SECONDARY
+    LineColor $LINECOLOR_SECONDARY
     LineThickness 1
   }
   Divider {
     BackgroundColor $ACCENT
-    LineColor $BORDERCOLOR
+    LineColor $LINECOLOR_PRIMARY
     LineThickness 2
-    FontColor $PRIMARYFONTCOLOR
+    FontColor $FONTCOLOR_PRIMARY
   }
   GroupHeader {
     BackgroundColor $ACCENT
     LineColor $ACCENT_DARK
-    FontColor $PRIMARYFONTCOLOR
+    FontColor $FONTCOLOR_PRIMARY
   }
   Group {
     Shadowing 0
     BackgroundColor $ACCENT_T20
     LineColor $ACCENT_DARK
-    FontColor $SECONDARYFONTCOLOR
+    FontColor $FONTCOLOR_SECONDARY
   }
   ReferenceHeader {
     BackgroundColor $ACCENT_DARK
-    LineColor $BORDERCOLOR
-    FontColor $PRIMARYFONTCOLOR
+    LineColor $LINECOLOR_PRIMARY
+    FontColor $FONTCOLOR_PRIMARY
   }
   Reference {
     Shadowing 0
-    LineColor $BORDERCOLOR
+    LineColor $LINECOLOR_PRIMARY
     BackgroundColor $ACCENT_DARK
-    FontColor $SECONDARYFONTCOLOR
+    FontColor $FONTCOLOR_SECONDARY
   }
   Separator {
     BackgroundColor $ACCENT
   }
-  actor, database, boundary, entity, collections, participant, control {
+  actor, database, boundary, entity, collections, participant, control, queue {
     
-    BackgroundColor $BOXBG
-    LineColor $BORDERCOLOR
+    BackgroundColor $COLOR_PRIMARY
+    LineColor $LINECOLOR_PRIMARY
   }
   actor {
     LineThickness 2
@@ -323,25 +362,43 @@ sequenceDiagram {
 
 stateDiagram {
   state {
-    BackgroundColor $BOXBG
-    LineColor $BORDERCOLOR
+    BackgroundColor $COLOR_PRIMARY
+    LineColor $LINECOLOR_PRIMARY
   }
   stateBody {
     BackgroundColor $ACCENT_T20
-    LineColor $BORDERCOLOR
+    LineColor $LINECOLOR_PRIMARY
   }
   diamond, circle {
-    BackgroundColor $LIGHTBG
-    LineColor $BORDERCOLOR
+    BackgroundColor $COLOR_SECONDARY
+    LineColor $LINECOLOR_PRIMARY
   }
   start {
-    BackgroundColor $SUCCESS
-    LineColor $LIGHTBORDERCOLOR
+    BackgroundColor $GREEN
+    LineColor $LINECOLOR_SECONDARY
   }
   end {
     Shadowing 0
-    BackgroundColor $DANGER
-    LineColor $DANGER
+    BackgroundColor $RED
+    LineColor $RED
+  }
+}
+componentDiagram {
+  actor, artifact, boundary, component, control, database, entity, file, person, queue, stack {
+    BackgroundColor $COLOR_PRIMARY
+    LineColor $LINECOLOR_SECONDARY
+  }
+  agent, card, cloud, collections, folder, frame, interface, package, rectangle, storage, usecase {
+    BackgroundColor $COLOR_PRIMARY
+    LineColor $LINECOLOR_PRIMARY
+  }
+  actor, boundary, control, entity, interface, queue, stack {
+    Shadowing 0
+  }
+  group {
+    Shadowing 0
+    BackgroundColor $ACCENT_T20
+    LineColor $ACCENT_DARK
   }
 }
 </style>
