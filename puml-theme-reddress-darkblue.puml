@@ -66,7 +66,6 @@
 <style>
   root {
     FontColor $PRIMARYFONTCOLOR
-    HyperLinkColor $PRIMARYFONTCOLOR
     FontName $FONTNAME
     FontSize $FONTSIZE
     Margin 4
@@ -75,6 +74,7 @@
   }
   document {
     BackgroundColor $BGCOLOR
+    HyperLinkColor $PRIMARYFONTCOLOR
     title {
       BackgroundColor $ACCENT_T50 
       LineColor $WHITE
@@ -217,6 +217,15 @@ timingDiagram {
   }
   constraintArrow {
     LineThickness 2
+    LineColor $DANGER
+  }
+  analog {
+    LineThickness 2
+    LineColor $WARNING
+  }
+  clock, binary, robust {
+    LineThickness 2
+    LineColor $SUCCESS
   }
 }
 
